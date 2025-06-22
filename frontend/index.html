@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Containerized App Frontend</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 Containerized JavaScript App</h1>
+        <p>Frontend communicating with Backend via Docker containers</p>
+      </header>
+
+      <main>
+        <section class="status-section">
+          <h2>Backend Status</h2>
+          <button id="checkStatus" class="btn">Check Backend Status</button>
+          <div id="statusResult" class="result"></div>
+        </section>
+
+        <section class="users-section">
+          <h2>User Management</h2>
+          <button id="loadUsers" class="btn">Load Users</button>
+          <div id="usersResult" class="result"></div>
+
+          <div class="add-user-form">
+            <h3>Add New User</h3>
+            <input
+              type="text"
+              id="userName"
+              placeholder="Enter name"
+              required
+            />
+            <input
+              type="email"
+              id="userEmail"
+              placeholder="Enter email"
+              required
+            />
+            <button id="addUser" class="btn btn-primary">Add User</button>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          Frontend: <span id="frontendStatus">Running</span> | Backend:
+          <span id="backendStatus">Unknown</span>
+        </p>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
