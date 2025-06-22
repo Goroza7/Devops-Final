@@ -1,0 +1,13 @@
+{
+  "name": "frontend-service",
+  "version": "1.0.0",
+  "description": "Simple frontend with live-server",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --host=0.0.0.0 --port=3000 --no-browser",
+    "dev": "live-server --port=3000"
+  },
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}
