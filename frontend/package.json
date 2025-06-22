@@ -4,10 +4,14 @@
   "description": "Simple frontend with live-server",
   "main": "index.html",
   "scripts": {
-    "start": "live-server --host=0.0.0.0 --port=3000 --no-browser",
-    "dev": "live-server --port=3000"
+    "start": "concurrently \"live-server --host=0.0.0.0 --port=3000 --no-browser\" \"node metrics-server.js\"",
+    "dev": "concurrently \"live-server --port=3000\" \"node metrics-server.js\""
   },
   "dependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "express": "^4.18.2",
+    "prom-client": "^14.2.0",
+    "cors": "^2.8.5",
+    "concurrently": "^8.2.0"
   }
 }

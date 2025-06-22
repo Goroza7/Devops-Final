@@ -49,26 +49,23 @@ async function fetchAPI(endpoint, options = {}) {
 
 // Event Handlers
 async function checkBackendStatus() {
+  sendUserInteraction("check_status");
   showLoading(statusResult);
 
   try {
     const data = await fetchAPI("/health");
     const content = `
-            <h4>✅ Backend is healthy!</h4>
-            <p><strong>Status:</strong> ${data.status}</p>
-            <p><strong>Timestamp:</strong> ${formatTimestamp(
-              data.timestamp
-            )}</p>
-        `;
+      <h4>✅ Backend is healthy!</h4>
+      <p><strong>Status:</strong> ${data.status}</p>
+      <p><strong>Timestamp:</strong> ${formatTimestamp(data.timestamp)}</p>`;
     showResult(statusResult, content, true);
     backendStatus.textContent = "Connected";
     backendStatus.style.color = "#27ae60";
   } catch (error) {
     const content = `
-            <h4>❌ Backend connection failed</h4>
-            <p><strong>Error:</strong> ${error.message}</p>
-            <p>Make sure the backend container is running on port 3001</p>
-        `;
+      <h4>❌ Backend connection failed</h4>
+      <p><strong>Error:</strong> ${error.message}</p>
+      <p>Make sure the backend container is running on port 3001</p>`;
     showResult(statusResult, content, false);
     backendStatus.textContent = "Disconnected";
     backendStatus.style.color = "#e74c3c";
@@ -76,6 +73,7 @@ async function checkBackendStatus() {
 }
 
 async function loadUsers() {
+  sendUserInteraction("load_users");
   showLoading(usersResult);
 
   try {
@@ -85,33 +83,31 @@ async function loadUsers() {
       const userCards = data.users
         .map(
           (user) => `
-                <div class="user-card">
-                    <h4>${user.name}</h4>
-                    <p>Email: ${user.email}</p>
-                    <p>ID: ${user.id}</p>
-                </div>
-            `
+          <div class="user-card">
+            <h4>${user.name}</h4>
+            <p>Email: ${user.email}</p>
+            <p>ID: ${user.id}</p>
+          </div>`
         )
         .join("");
 
       const content = `
-                <h4>👥 Users loaded successfully (${data.count} total)</h4>
-                ${userCards}
-            `;
+        <h4>👥 Users loaded successfully (${data.count} total)</h4>
+        ${userCards}`;
       showResult(usersResult, content, true);
     } else {
       showResult(usersResult, "<h4>No users found</h4>", true);
     }
   } catch (error) {
     const content = `
-            <h4>❌ Failed to load users</h4>
-            <p><strong>Error:</strong> ${error.message}</p>
-        `;
+      <h4>❌ Failed to load users</h4>
+      <p><strong>Error:</strong> ${error.message}</p>`;
     showResult(usersResult, content, false);
   }
 }
 
 async function addUser() {
+  sendUserInteraction("add_user");
   const name = userNameInput.value.trim();
   const email = userEmailInput.value.trim();
 
@@ -133,13 +129,12 @@ async function addUser() {
     });
 
     const content = `
-            <h4>✅ User added successfully!</h4>
-            <div class="user-card">
-                <h4>${newUser.name}</h4>
-                <p>Email: ${newUser.email}</p>
-                <p>ID: ${newUser.id}</p>
-            </div>
-        `;
+      <h4>✅ User added successfully!</h4>
+      <div class="user-card">
+        <h4>${newUser.name}</h4>
+        <p>Email: ${newUser.email}</p>
+        <p>ID: ${newUser.id}</p>
+      </div>`;
     showResult(usersResult, content, true);
 
     // Clear form
@@ -147,9 +142,8 @@ async function addUser() {
     userEmailInput.value = "";
   } catch (error) {
     const content = `
-            <h4>❌ Failed to add user</h4>
-            <p><strong>Error:</strong> ${error.message}</p>
-        `;
+      <h4>❌ Failed to add user</h4>
+      <p><strong>Error:</strong> ${error.message}</p>`;
     showResult(usersResult, content, false);
   }
 }
@@ -169,7 +163,19 @@ userEmailInput.addEventListener("keypress", (e) => {
 // Initialize app
 document.addEventListener("DOMContentLoaded", () => {
   console.log("🚀 Frontend application loaded successfully!");
+  fetch("http://localhost:9101/pageview?page=home", {
+    method: "POST",
+  }).catch((err) => {
+    console.error("Failed to send page view metric:", err);
+  });
 
-  // Auto-check backend status on load
   setTimeout(checkBackendStatus, 1000);
 });
+
+function sendUserInteraction(action) {
+  fetch(`http://localhost:9101/userinteraction?action=${action}`, {
+    method: "POST",
+  }).catch((err) => {
+    console.error("Failed to send user interaction metric:", err);
+  });
+}

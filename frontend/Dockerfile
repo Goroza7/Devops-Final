@@ -8,13 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --only=production
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Expose the ports the app runs on
+EXPOSE 3000 9100
 
 # Create a non-root user
 RUN addgroup -g 1001 -S nodejs
