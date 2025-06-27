@@ -19,7 +19,8 @@ The backend service became completely unavailable due to container failure, resu
 | **19:50:00** | Prometheus successfully scrapes the `backend` target, and the `up` metric returns to `1`. |
 | **19:50:20** | Functionality is verified on the frontend. The incident is declared resolved. |
 
-![alt text]([assets\Downtime.png](https://github.com/Goroza7/Devops-Final/blob/main/assets/Downtime.png))
+![Backend Downtime Chart](https://github.com/Goroza7/Devops-Final/blob/main/assets/Downtime.png)
+
 
 ### 4. Root Cause
 
