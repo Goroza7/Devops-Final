@@ -2,10 +2,8 @@ const express = require("express");
 const client = require("prom-client");
 const cors = require("cors");
 
-// Create a Registry to register the metrics
 const register = new client.Registry();
 
-// Add a default label which is added to all metrics
 register.setDefaultLabels({
   app: "frontend-service",
 });
@@ -15,11 +13,9 @@ const uptimeGauge = new client.Gauge({
   help: "Uptime of the Node.js process in seconds",
 });
 
-// Update uptime periodically
 setInterval(() => {
-  uptimeGauge.set(process.uptime()); // built-in Node.js method: returns seconds since process started
+  uptimeGauge.set(process.uptime());
 }, 1000);
-// Enable the collection of default metrics
 client.collectDefaultMetrics({ register });
 
 // Create custom metrics
@@ -40,7 +36,6 @@ const appHealth = new client.Gauge({
   help: "Health status of the application (1 = healthy, 0 = unhealthy)",
 });
 
-// Set initial health to healthy
 appHealth.set(1);
 
 // Register the custom metrics
@@ -49,19 +44,11 @@ register.registerMetric(userInteractions);
 register.registerMetric(uptimeGauge);
 register.registerMetric(appHealth);
 
-// Simulate some metrics data
-// pageViews.inc({ page: "home" }, 5);
-userInteractions.inc({ action: "button_click" }, 3);
-userInteractions.inc({ action: "form_submit" }, 2);
-
-// Create an Express server
 const app = express();
 const PORT = 9100;
 
-// Middleware
 app.use(cors());
 
-// Metrics endpoint
 app.get("/metrics", async (req, res) => {
   res.set("Content-Type", register.contentType);
   res.end(await register.metrics());
