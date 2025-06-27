@@ -1,0 +1,3 @@
+#  Discarding env file as it contains sensitive information
+.env
+
