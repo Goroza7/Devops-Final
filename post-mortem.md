@@ -11,15 +11,22 @@ The backend service became completely unavailable due to container failure, resu
 
 ### 3. Timeline of Events (UTC)
 
-| **19:46:45** | The `backend` container was terminated manually. The service goes offline. |
-| **19:46:55** | First API call failure, User was not able to load existing users |
-| **19:47:15** | The `app_health{job="backend-metrics"}` metric reports `0`. Prometheus UI shows the target as `DOWN`. |
-| **19:49:30** | initiated the restart of the service via `docker-compose up -d backend`. |
-| **19:49:40** | Service restored
-| **19:50:00** | Prometheus successfully scrapes the `backend` target, and the `up` metric returns to `1`. |
-| **19:50:20** | Functionality is verified on the frontend. The incident is declared resolved. |
+| **19:46:45** | The `backend` container was terminated manually. The service goes offline. 
+ 
+| **19:46:55** | First API call failure, User was not able to load existing users 
 
-![alt text](assets\Downtime.png)
+| **19:47:15** | The `app_health{job="backend-metrics"}` metric reports `0`. Prometheus UI shows the target as `DOWN`. 
+
+| **19:49:30** | initiated the restart of the service via `docker-compose up -d backend`. 
+
+| **19:49:40** | Service restored
+
+| **19:50:00** | Prometheus successfully scrapes the `backend` target, and the `up` metric returns to `1`. 
+
+| **19:50:20** | Functionality is verified on the frontend. The incident is declared resolved. 
+
+![Backend Downtime Chart](https://github.com/Goroza7/Devops-Final/blob/main/assets/Downtime.png)
+
 
 ### 4. Root Cause
 
