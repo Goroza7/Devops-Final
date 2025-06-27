@@ -1,0 +1,22 @@
+groups:
+  - name: backend-alerts
+    rules:
+      - alert: BackendDown
+        expr: up{job="backend-metrics"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backend service is down"
+          description: "The backend service has been down for more than 1 minute."
+
+  - name: frontend-alerts
+    rules:
+      - alert: FrontendDown
+        expr: up{job="frontend-metrics"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Frontend service is down"
+          description: "The frontend service has been down for more than 1 minute."

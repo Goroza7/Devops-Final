@@ -7,17 +7,6 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9090"]
 
-  - job_name: "backend-health"
-    static_configs:
-      - targets: ["backend:3001"]
-    metrics_path: "/api/health"
-    scrape_timeout: 5s
-    metric_relabel_configs:
-      - source_labels: [__name__]
-        regex: ".*"
-        target_label: service
-        replacement: "backend"
-
   - job_name: "backend-metrics"
     static_configs:
       - targets: ["backend:3001"]
@@ -29,3 +18,6 @@ scrape_configs:
       - targets: ["frontend:9100"]
     metrics_path: "/metrics"
     scrape_timeout: 5s
+
+rule_files:
+  - "alert-rules.yml"
