@@ -110,11 +110,11 @@ Prometheus is configured with alerting rules to notify when a service is down. T
 - **`FrontendDown`**: Fires when the frontend service is down for 1 minute.
 
 ### Grafana dashboards
-
+## Application Cpu and Memory Usage
 ![Application Cpu and Memory Usage](https://github.com/Goroza7/Devops-Final/blob/main/assets/CPU&Memory.png)
-
+## Uptime and status of application
 ![Uptime and status of application](https://github.com/Goroza7/Devops-Final/blob/main/assets/uptime&status.png)
-
+## Frontend mentrics: user interaction and page views
 ![User interaction and Page views](https://github.com/Goroza7/Devops-Final/blob/main/assets/interaction&views.png)
-
+## System Cpu, Memory usage and Uptime
 ![System Cpu, and Uptime](<https://github.com/Goroza7/Devops-Final/blob/main/assets/cpu&memory(system).png>)

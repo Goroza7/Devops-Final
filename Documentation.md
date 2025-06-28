@@ -25,7 +25,7 @@ Following the implementation of these security measures, the high-severity vulne
 ### Security Scan Results
 
 The following screenshots show the "before" vulnerability scans, highlighting the successful remediation, after that trivy returned 0 vulnerabilities.
-
+## Frontend Vulnerabilities
 ![Frontend vulnerabilities](https://github.com/Goroza7/Devops-Final/blob/main/assets/Frontendvuln.png)
-
+## Backend Vulnerabilities
 ![Backend vulnerabilities](https://github.com/Goroza7/Devops-Final/blob/main/assets/Backendvuln.png)
