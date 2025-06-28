@@ -35,8 +35,15 @@ The application consists of a backend API service that manages user data and a u
     ```bash
     docker-compose up -d
     ```
-
-4.  **Access the services:**
+4. **Automate with ansible:**
+   ```bash
+   cd ansible
+   # Start containers
+   ansible-playbook deploy.yml
+   # Stop and remove all containers
+   ansible-playbook shutdown.yml 
+   
+5.  **Access the services:**
 
     - **Frontend Application**: [http://localhost:3000](http://localhost:3000)
     - **Backend API Health**: [http://localhost:3001/api/health](http://localhost:3001/api/health)
