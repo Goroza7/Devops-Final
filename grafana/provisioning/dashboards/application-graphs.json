@@ -441,7 +441,7 @@
           "expr": "frontend_user_interactions{app=\"frontend-service\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "legendFormat": "{{app}}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -541,7 +541,7 @@
           "expr": "frontend_page_views{app=\"frontend-service\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "legendFormat": "{{app}}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "useBackend": false
