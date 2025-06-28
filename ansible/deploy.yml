@@ -1,0 +1,39 @@
+- name: Deploy Containerized Application
+  hosts: localhost
+  gather_facts: no
+  vars:
+    project_dir: "{{ lookup('env', 'PROJECT_DIR') }}"
+
+  tasks:
+    - name: Stop existing containers
+      command: docker compose down
+      args:
+        chdir: "{{ project_dir }}"
+      ignore_errors: yes
+
+    - name: Build and start services
+      command: docker compose up -d --build
+      args:
+        chdir: "{{ project_dir }}"
+
+    - name: Wait for services to start
+      pause:
+        seconds: 10
+
+    - name: Show running containers
+      command: docker compose ps
+      args:
+        chdir: "{{ project_dir }}"
+      register: containers
+
+    - name: Deployment complete
+      debug:
+        msg:
+          - "Deployment finished!"
+          - "{{ containers.stdout_lines }}"
+          - ""
+          - "Services available at:"
+          - "  Frontend: http://localhost:3000"
+          - "  Backend API: http://localhost:3001"
+          - "  Prometheus: http://localhost:9090"
+          - "  Grafana: http://localhost:3030"

@@ -1,0 +1,48 @@
+- name: Shutdown Containerized Application
+  hosts: localhost
+  gather_facts: no
+  vars:
+    project_dir: "{{ lookup('env', 'PROJECT_DIR') }}"
+
+  tasks:
+    - name: Check current container status
+      command: docker compose ps
+      args:
+        chdir: "{{ project_dir }}"
+      register: current_status
+      ignore_errors: yes
+
+    - name: Display current containers
+      debug:
+        msg:
+          - "Current running containers:"
+          - "{{ current_status.stdout_lines | default(['No containers running']) }}"
+
+    - name: Stop and remove containers
+      command: docker compose down
+      args:
+        chdir: "{{ project_dir }}"
+      ignore_errors: yes
+
+    - name: Wait for shutdown to complete
+      pause:
+        seconds: 5
+
+    - name: Verify shutdown
+      command: docker compose ps
+      args:
+        chdir: "{{ project_dir }}"
+      register: final_status
+      ignore_errors: yes
+
+    - name: Shutdown complete
+      debug:
+        msg:
+          - "Shutdown finished!"
+          - "{{ final_status.stdout_lines | default(['All containers stopped']) }}"
+          - ""
+          - "Services that were running:"
+          - "  Frontend: http://localhost:3000"
+          - "  Backend API: http://localhost:3001"
+          - "  Prometheus: http://localhost:9090"
+          - "  Grafana: http://localhost:3030"
